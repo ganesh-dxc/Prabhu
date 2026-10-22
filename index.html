@@ -187,7 +187,7 @@ function fillYM(){const y=$('year'),m=$('month'),yv=y.value,mv=m.value;
  y.innerHTML='<option value="">All Years</option>'+ys.map(x=>`<option>${x}</option>`).join('');y.value=ys.includes(yv)?yv:'';
  const ms=[...new Set(DATA.filter(r=>!y.value||r.cr.slice(0,4)===y.value).map(r=>r.cr.slice(5,7)).filter(Boolean))].sort();
  m.innerHTML='<option value="">All Months</option>'+ms.map(x=>`<option value="${x}">${MN[+x-1]}</option>`).join('');m.value=ms.includes(mv)?mv:'';
- const d=DATA.flatMap(r=>[r.cr,r.cl]).filter(Boolean).sort().pop();const cs=DATA.map(r=>r.cr).filter(Boolean).sort(),u=$('upTo');u.removeAttribute('max');if(d){u.min=cs[0]||'';if(!u.dataset.touched||!u.value)u.value=d}}
+ const d=DATA.flatMap(r=>[r.cr,r.cl]).filter(Boolean).sort().pop();const cs=DATA.map(r=>r.cr).filter(Boolean).sort(),u=$('upTo');u.removeAttribute('max');if(d){u.min=cs[0]||'';const td=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'});if(!u.dataset.touched||!u.value)u.value=d>td?d:td}}
 function rowsF(){const g=$('region').value,a=$('assignee').value,s=$('state').value,q=$('search').value.toLowerCase().trim();
  const yv=$('year').value,mv=$('month').value,up=$('upTo').value;
  return DATA.filter(r=>(!up||!r.cr||r.cr<=up)&&(!yv||r.cr.slice(0,4)===yv)&&(!mv||r.cr.slice(5,7)===mv)&&(!g||r.region===g)&&(!a||r.who===a)&&(!s||r.st===s)&&(!q||Object.values(r).join(' ').toLowerCase().includes(q)))}
